@@ -36,6 +36,20 @@ bool Rover::isAvailable() const {
     return status == RoverStatus::AVAILABLE;
 }
 
+int Rover::getAssignedMissionID() const {
+    return assignedMissionID;
+}
+
+int Rover::getCheckupDuration() const {
+    return checkupDuration;
+}
+
+int Rover::getMissionsBeforeCheckup() const {
+    return missionsBeforeCheckup;
+}
+
+
+
 // --- Action Functions (State Changes) ---
 
 // 1. Mission Launch
@@ -88,7 +102,28 @@ void Rover::missionCompleted() {
 }
 
 
-// 6. Daily Checkup Countdown
+// 6. Function to increment the number of missions completed by the rover
+void Rover::incrementMissions() {
+    missionsCompletedCount++;
+    // Check if the rover needs to go for checkup after completing the mission
+    if (missionsCompletedCount >= missionsBeforeCheckup) {
+        startCheckup();
+    }
+}
+
+//7. Implementation of checkupRequired
+bool Rover::checkupRequired() const {
+    // A checkup is required if the number of missions completed
+    // equals or exceeds the missions before checkup
+    return missionsCompletedCount >= missionsBeforeCheckup;
+}
+
+//8. Implementation of setStatus
+void Rover::setStatus(RoverStatus newStatus) {
+    status = newStatus;
+}
+
+// 8. Daily Checkup Countdown
 void Rover::decrementCheckupDays() {
     // Only update if the rover is actually in checkup
     if (status == RoverStatus::CHECKUP) {
@@ -99,4 +134,14 @@ void Rover::decrementCheckupDays() {
             status = RoverStatus::AVAILABLE;
         }
     }
+}
+
+//9. Function definition for getRemainingCheckupDays
+int Rover::getRemainingCheckupDays() const {
+    return remainingCheckupDays;
+}
+
+//10. Implementation of getMissionsCompletedCount
+int Rover::getMissionsCompletedCount() const {
+    return missionsCompletedCount;
 }

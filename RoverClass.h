@@ -60,29 +60,16 @@ public:
 
     
     void setStatus(RoverStatus newStatus);
-
-
-    // Actions      (State changes)
     void assignMission(int missionID);
-       
-        
-
-
     void transitionToEXEC();
         // Rover arrived and is executing
        
-
     void transitionToBACK();
        // Execution finished, rover is returning
       
-
-
     void missionCompleted();
         // 1. Mission is done, increment count
        
-
-
-
     void incrementMissions();
 
     void startCheckup();
