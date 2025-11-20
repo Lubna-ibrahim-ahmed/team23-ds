@@ -79,7 +79,7 @@ public:
 
     // Check if the rover is currently free to take a new mission
     bool isAvailable() const;
-
+    ostream& operator<<(ostream& os, const Rover* r);
 };
 
 

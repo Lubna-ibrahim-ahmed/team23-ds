@@ -145,3 +145,23 @@ int Rover::getRemainingCheckupDays() const {
 int Rover::getMissionsCompletedCount() const {
     return missionsCompletedCount;
 }
+ostream& Rover::operator<<(ostream& os, const Rover* r) {
+    if (!r) return os << "[NULL Rover]";
+    os << "R" << r->getID() << "(" << r->getType() << ")";
+    os << " Spd: " << r->getSpeed()
+        << " M_Done: " << r->getCompletedMissions()
+        << "/" << r->getMissionsBeforeCheckup();
+    if (r->isInCheckup())
+    {
+        os << " [IN CHECKUP]";
+    }
+    else if (r->getCurrentMission())
+    {
+        os << " [BUSY M" << r->getCurrentMission()->getID() << "]";
+    }
+    else
+    {
+        os << " [AVAILABLE]";
+    }
+    return os;
+}

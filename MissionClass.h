@@ -45,5 +45,6 @@ public:
     void calculateTDay();
     void calculateWDay();
     virtual void Operate() = 0;
+    ostream& operator<<(ostream& os, const MissionClass* m);
     
 };

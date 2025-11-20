@@ -78,3 +78,21 @@ void MissionClass::calculateWDay() {
 	}
 	WDays = LDay - RDay;
 }
+ostream& MissionClass::operator<<(ostream& os, const MissionClass* m) {
+	if (!m) return os << "[NULL Mission]";
+	os << "M" << m->getID() << "(" << m->getType() << ")";
+	if (m->getAssignedRover())
+	{
+		os << " by R" << m->getAssignedRover()->getID() << "(" << m->getAssignedRover()->getType() << ")";
+	}
+	os << " RDay: D" << m->getRDay()
+		<< " Dur: " << m->getDuration()
+		<< " TLOC: " << m->getTLOC();
+	if (m->getLDay() > 0)
+	{
+		os << " WDays: " << m->getWDays()
+			<< " FDay: D" << m->getFDay()
+			<< " TDays: " << m->getTDays();
+	}
+	return os;
+}
